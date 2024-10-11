@@ -1,0 +1,23 @@
+.checker {
+  @apply absolute inset-[5px] rounded-full border-2;
+
+  &.checker-red {
+    @apply bg-red-500 border-red-700;
+
+    .checker-top {
+      @apply bg-red-500 border-red-700;
+    }
+  }
+
+  &.checker-black {
+    @apply bg-gray-700 border-gray-900;
+
+    .checker-top {
+      @apply bg-gray-700 border-gray-900;
+    }
+  }
+
+  .checker-top {
+    @apply hidden absolute rounded-full border-2;
+  }
+}

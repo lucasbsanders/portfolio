@@ -1,0 +1,33 @@
+<div class="w-full max-w-screen m-6">
+  <div class="flex flex-col md:flex-row gap-4" #content>
+    <!-- Checkers board -->
+    <div class="border border-white flex flex-col relative" #checkersBoard [ngStyle]="{'height.px': boardSizePx, 'width.px': boardSizePx}">
+      <span class="checker z-20" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize, 'left.px': mouseX, 'top.px': mouseY}"
+        [ngClass]="{'checker-black': currentTurnColor === 'b', 'checker-red': currentTurnColor === 'r', 'hidden': !elementClicked }">
+        <span class="checker-top" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"></span>
+      </span>
+      <div *ngFor="let boardRow of board; let row = index" class="w-full grow flex flex-row" [ngClass]="{ 'border-t border-white': row > 0 }">
+        <div *ngFor="let space of boardRow; let col = index" [id]="row + ',' + col" class="h-full grow relative" [ngClass]="{ 'border-l border-white': col > 0,
+          'bg-slate-200': (row + col) % 2 === 0,
+          'bg-white': (row + col) % 2 === 1 }" (mouseup)="dropChecker(row, col)">
+          <span *ngIf="space === 'b' || space === 'r'" class="checker" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"
+            [ngClass]="{'checker-black': space === 'b', 'checker-red': space === 'r', 'opacity-50': elementClicked === row + ',' + col}"
+            (mousedown)="clickChecker($event, row, col)">
+            <span class="checker-top" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Info table -->
+    <div class="grow border">
+      <div class="flex flex-col gap-2 mb-4">
+        <p *ngFor="let move of moves">
+          {{(move.color === 'b' ? 'Black: ' : 'Red: ') +
+          '(' + (move.startRow + 1) + ', ' + (move.startCol + 1) + ') to ' +
+          '(' + (move.endRow + 1) + ', ' + (move.endCol + 1) + ')'}}
+        </p>
+        <p>{{currentTurnColor === 'b' ? 'Black\'s turn' : 'Red\'s turn' }}</p>
+      </div>
+    </div>
+  </div>
+</div>
