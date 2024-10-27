@@ -6,8 +6,9 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'checkers',
         title: 'Checkers',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/checkers'
+        icon : 'heroicons_outline:circle-stack',
+        link : '/checkers',
+        subtitle: 'Checkers game simulator'
     },
 ];
 

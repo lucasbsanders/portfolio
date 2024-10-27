@@ -70,11 +70,18 @@ body fuse-splash-screen .spinner .bounce2 {
     }
 }
 
-body:not(.fuse-splash-screen-hidden) {
+body:not(.splash-screen-hidden) {
     overflow: hidden;
 }
 
-body.fuse-splash-screen-hidden fuse-splash-screen {
-    visibility: hidden;
+body:not(.splash-screen-hidden) fuse-splash-screen {
+    opacity: 1;
+}
+
+body fuse-splash-screen {
+    transition: opacity 500ms ease;
+}
+
+body.splash-screen-hidden fuse-splash-screen {
     opacity: 0;
 }

@@ -1,0 +1,49 @@
+<div class="w-full max-w-full m-6">
+  <div class="w-full flex flex-col md:flex-row gap-4" #contentContainer>
+    <!-- Checkers board -->
+    <div class="border border-white flex flex-col relative" #checkersBoard [ngStyle]="{'height.px': boardSizePx, 'width.px': boardSizePx}">
+      <span class="checker z-20" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize, 'left.px': selectedCheckerX, 'top.px': selectedCheckerY}"
+        [ngClass]="{'checker-black': currentTurnColor === 'b', 'checker-red': currentTurnColor === 'r', 'hidden': !selectedChecker }">
+        <span class="checker-top" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"></span>
+      </span>
+      <span *ngFor="let eligibleSpace of eligibleSpaces" class="z-10 highlight" [ngStyle]="{'height.px': boardSizePx / 8, 'width.px': boardSizePx / 8,
+          'top.px': eligibleSpace[0] * boardSizePx / 8,
+          'left.px': eligibleSpace[1] * boardSizePx / 8}">
+      </span>
+
+      <ng-container *ngFor="let checker of board.reds">
+        <ng-container *ngTemplateOutlet="checkerDisplay; context: {checker: checker}"></ng-container>
+      </ng-container>
+      <ng-container *ngFor="let checker of board.blacks">
+        <ng-container *ngTemplateOutlet="checkerDisplay; context: {checker: checker}"></ng-container>
+      </ng-container>
+
+      <div *ngFor="let _a of BOARD_SIZE_ARR; let row = index" class="w-full grow flex flex-row" [ngClass]="{ 'border-t border-white': row > 0 }">
+        <div *ngFor="let _b of BOARD_SIZE_ARR; let col = index" [id]="row + ',' + col" class="h-full grow relative" [ngClass]="{ 'border-l border-white': col > 0,
+          'bg-slate-200': (row + col) % 2 === 0,
+          'bg-white': (row + col) % 2 === 1 }">
+        </div>
+      </div>
+    </div>
+    <!-- Info table -->
+    <div class="grow border">
+      <div class="flex flex-col gap-2 mb-4">
+        <p *ngFor="let move of board.turns">
+          {{(move.color === 'b' ? 'Black: ' : 'Red: ') +
+          '(' + (move.startRow + 1) + ', ' + (move.startCol + 1) + ') to ' +
+          '(' + (move.endRow + 1) + ', ' + (move.endCol + 1) + ')'}}
+        </p>
+        <p>{{currentTurnColor === 'b' ? 'Black\'s turn' : 'Red\'s turn' }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #checkerDisplay let-checker="checker">
+  <span class="checker z-10"
+    [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize, 'top.px': checker.row * checkerSize / .9 + checkerSize * .08, 'left.px': checker.col * checkerSize / .9 + checkerSize * .08}"
+    [ngClass]="{'opacity-50': selectedChecker?.id === checker.id, 'checker-red': checker.color === 'r', 'checker-black': checker.color === 'b'}"
+    (mousedown)="clickChecker($event, checker.row, checker.col)" (touchstart)="clickChecker($event, checker.row, checker.col)">
+    <span class="checker-top" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"></span>
+  </span>
+</ng-template>

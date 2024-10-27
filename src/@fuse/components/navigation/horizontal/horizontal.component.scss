@@ -41,21 +41,23 @@ fuse-horizontal-navigation {
             .fuse-horizontal-navigation-item-active,
             .fuse-horizontal-navigation-item-active-forced {
 
-                .fuse-horizontal-navigation-item-title {
-                    @apply text-primary #{'!important'};
-                }
+                // .fuse-horizontal-navigation-item-title {
+                //     .dark & {
+                //         @apply text-white;
+                //     }
+                // }
 
-                .fuse-horizontal-navigation-item-subtitle {
-                    @apply text-primary-400 #{'!important'};
+                // .fuse-horizontal-navigation-item-subtitle {
+                //     .dark & {
+                //         @apply text-white;
+                //     }
+                // }
 
-                    .dark & {
-                        @apply text-primary-600 #{'!important'};
-                    }
-                }
-
-                .fuse-horizontal-navigation-item-icon {
-                    @apply text-primary #{'!important'};
-                }
+                // .fuse-horizontal-navigation-item-icon {
+                //     .dark & {
+                //         @apply text-white;
+                //     }
+                // }
             }
         }
 
@@ -117,19 +119,19 @@ fuse-horizontal-navigation {
         .fuse-horizontal-navigation-item-active-forced {
 
             .fuse-horizontal-navigation-item-title {
-                @apply text-primary #{'!important'};
+                @apply text-primary;
             }
 
             .fuse-horizontal-navigation-item-subtitle {
-                @apply text-primary-400 #{'!important'};
+                @apply text-primary-400;
 
                 .dark & {
-                    @apply text-primary-600 #{'!important'};
+                    @apply text-primary-600;
                 }
             }
 
             .fuse-horizontal-navigation-item-icon {
-                @apply text-primary #{'!important'};
+                @apply text-primary;
             }
         }
     }

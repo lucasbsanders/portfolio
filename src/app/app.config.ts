@@ -8,7 +8,6 @@ import { provideFuse } from '@fuse';
 import { provideTransloco, TranslocoService } from '@ngneat/transloco';
 import { firstValueFrom } from 'rxjs';
 import { appRoutes } from 'app/app.routes';
-import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
@@ -77,7 +76,6 @@ export const appConfig: ApplicationConfig = {
         },
 
         // Fuse
-        provideAuth(),
         provideIcons(),
         provideFuse({
             mockApi: {
@@ -85,7 +83,7 @@ export const appConfig: ApplicationConfig = {
                 services: mockApiServices,
             },
             fuse   : {
-                layout : 'dense',
+                layout : 'centered',
                 scheme : 'auto',
                 screens: {
                     sm: '600px',
@@ -93,32 +91,32 @@ export const appConfig: ApplicationConfig = {
                     lg: '1280px',
                     xl: '1440px',
                 },
-                theme  : 'theme-brand',
+                theme  : 'theme-default',
                 themes : [
-                    // {
-                    //     id  : 'theme-default',
-                    //     name: 'Default',
-                    // },
+                    {
+                        id  : 'theme-default',
+                        name: 'Default',
+                    },
                     {
                         id  : 'theme-brand',
                         name: 'Brand',
                     },
-                    // {
-                    //     id  : 'theme-teal',
-                    //     name: 'Teal',
-                    // },
-                    // {
-                    //     id  : 'theme-rose',
-                    //     name: 'Rose',
-                    // },
-                    // {
-                    //     id  : 'theme-purple',
-                    //     name: 'Purple',
-                    // },
-                    // {
-                    //     id  : 'theme-amber',
-                    //     name: 'Amber',
-                    // },
+                    {
+                        id  : 'theme-teal',
+                        name: 'Teal',
+                    },
+                    {
+                        id  : 'theme-rose',
+                        name: 'Rose',
+                    },
+                    {
+                        id  : 'theme-purple',
+                        name: 'Purple',
+                    },
+                    {
+                        id  : 'theme-amber',
+                        name: 'Amber',
+                    },
                 ],
             },
         }),

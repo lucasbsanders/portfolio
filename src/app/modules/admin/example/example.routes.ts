@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ExampleComponent } from 'app/modules/admin/example/example.component';
-import { CheckersComponent } from '../checkers/checkers.component';
+import { CheckersComponent } from '../../portfolio/checkers/checkers.component';
+import { HomeComponent } from 'app/modules/portfolio/home/home.component';
 
 export default [
     // {
@@ -9,8 +10,7 @@ export default [
     // },
     {
         path      : '',
-        redirectTo: 'checkers',
-        pathMatch : 'full'
+        component : HomeComponent,
     },
     {
         path      : 'checkers',

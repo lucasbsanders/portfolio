@@ -19,16 +19,17 @@ import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector     : 'classy-layout',
-    templateUrl  : './classy.component.html',
+    selector     : 'dense-layout',
+    templateUrl  : './dense.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone   : true,
-    imports      : [FuseLoadingBarComponent, FuseVerticalNavigationComponent, NotificationsComponent, UserComponent, NgIf, MatIconModule, MatButtonModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, RouterOutlet, QuickChatComponent],
+    imports      : [FuseLoadingBarComponent, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet, QuickChatComponent],
 })
-export class ClassyLayoutComponent implements OnInit, OnDestroy
+export class DenseLayoutComponent implements OnInit, OnDestroy
 {
     isScreenSmall: boolean;
     navigation: Navigation;
+    navigationAppearance: 'default' | 'dense' = 'dense';
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -80,6 +81,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             {
                 // Check if the screen is small
                 this.isScreenSmall = !matchingAliases.includes('md');
+
+                // Change the navigation appearance
+                this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
             });
     }
 
@@ -112,5 +116,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             // Toggle the opened status
             navigation.toggle();
         }
+    }
+
+    /**
+     * Toggle the navigation appearance
+     */
+    toggleNavigationAppearance(): void
+    {
+        this.navigationAppearance = (this.navigationAppearance === 'default' ? 'dense' : 'default');
     }
 }

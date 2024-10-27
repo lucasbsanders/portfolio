@@ -1,13 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { User } from 'app/core/user/user.types';
-import { map, Observable, ReplaySubject, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, ReplaySubject, tap } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class UserService
 {
     private _httpClient = inject(HttpClient);
-    private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
+    private _user: BehaviorSubject<User> = new BehaviorSubject<User>({
+        id: 'guest',
+        name: 'guest',
+        email: 'xxx',
+    });
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors

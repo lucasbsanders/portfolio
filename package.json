@@ -1,7 +1,7 @@
 {
-    "name": "fuse-angular",
-    "version": "19.0.0",
-    "description": "Fuse - Angular Admin Template and Starter Project",
+    "name": "portfolio",
+    "version": "19.0.1",
+    "description": "LS Portfolio based on Fuse - Angular Admin Template and Starter Project",
     "author": "https://themeforest.net/user/srcn",
     "license": "https://themeforest.net/licenses/standard",
     "private": true,
@@ -10,7 +10,9 @@
         "start": "ng serve",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "test": "ng test",
+        "build-dev": "ng build --base-href=https://lucasbsanders.github.io/portfolio/",
+        "deploy-dev": "ng deploy --repo=https://github.com/lucasbsanders/portfolio.git  --base-href=/portfolio/"
     },
     "dependencies": {
         "@angular/animations": "17.0.3",
@@ -50,6 +52,7 @@
         "@types/lodash": "4.14.201",
         "@types/lodash-es": "4.17.11",
         "@types/luxon": "3.3.4",
+        "angular-cli-ghpages": "^1.0.5",
         "autoprefixer": "10.4.16",
         "chroma-js": "2.4.2",
         "jasmine-core": "5.1.1",
