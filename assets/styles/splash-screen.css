@@ -8,13 +8,20 @@ body fuse-splash-screen {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #111827;
     color: #F9FAFB;
     z-index: 999999;
     pointer-events: none;
     opacity: 1;
     visibility: visible;
     transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.dark fuse-splash-screen {
+    background-color: #111827;
+}
+
+body.light fuse-splash-screen {
+    background-color: rgb(226 232 240);
 }
 
 body fuse-splash-screen img {
@@ -75,11 +82,12 @@ body:not(.splash-screen-hidden) {
 }
 
 body:not(.splash-screen-hidden) fuse-splash-screen {
+    transition: opacity 500ms ease;
     opacity: 1;
 }
 
 body fuse-splash-screen {
-    transition: opacity 500ms ease;
+    
 }
 
 body.splash-screen-hidden fuse-splash-screen {
