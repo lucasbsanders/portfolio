@@ -8,7 +8,7 @@ body fuse-splash-screen {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #111827;
+    background-color: #333333;
     color: #F9FAFB;
     z-index: 999999;
     pointer-events: none;
@@ -70,18 +70,14 @@ body fuse-splash-screen .spinner .bounce2 {
     }
 }
 
-body:not(.splash-screen-hidden) {
+body:not(.fuse-splash-screen-hidden) {
     overflow: hidden;
 }
 
-body:not(.splash-screen-hidden) fuse-splash-screen {
-    opacity: 1;
+body.fuse-splash-screen-hidden fuse-splash-screen {
+    opacity: 0;
 }
 
 body fuse-splash-screen {
     transition: opacity 500ms ease;
-}
-
-body.splash-screen-hidden fuse-splash-screen {
-    opacity: 0;
 }

@@ -34,7 +34,7 @@ export class FuseUtilsService
     get subsetMatchOptions(): IsActiveMatchOptions
     {
         return {
-            paths       : 'subset',
+            paths       : 'exact',
             fragment    : 'ignored',
             matrixParams: 'ignored',
             queryParams : 'subset',

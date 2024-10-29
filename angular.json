@@ -17,8 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/portfolio",
-                        "baseHref": "/portfolio/",
+                        "outputPath": "dist/fuse",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": [
@@ -128,8 +127,8 @@
                 "deploy": {
                     "builder": "angular-cli-ghpages:deploy",
                     "options": {
-                        "baseHref": "/your-repository-name/",
-                        "outputPath": "dist/your-project-name"
+                        "baseHref": "/portfolio/",
+                        "outputPath": "dist/portfolio"
                     }
                 }
             }

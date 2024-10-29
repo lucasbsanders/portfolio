@@ -42,6 +42,10 @@ module.exports = plugin(({
                 '--tw-bg-opacity': '1 !important',
                 backgroundColor  : 'rgba(var(--fuse-bg-default-rgb), var(--tw-bg-opacity)) !important',
             },
+            '.bg-site-container' : {
+                '--tw-bg-opacity': '1 !important',
+                backgroundColor  : 'rgba(var(--fuse-bg-site-container-rgb), var(--tw-bg-opacity)) !important',
+            },
             '.bg-dialog'      : {
                 '--tw-bg-opacity': '1 !important',
                 backgroundColor  : 'rgba(var(--fuse-bg-dialog-rgb), var(--tw-bg-opacity)) !important',

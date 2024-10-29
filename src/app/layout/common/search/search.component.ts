@@ -182,16 +182,12 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
                 filter((value) => value && value.length >= this.minLength)
             )
             .subscribe((query) => {
-                console.log(this.flatNavigation);
-                console.log(query);
-                console.log(cloneDeep(this.flatNavigation));
                 const pagesResults = cloneDeep(this.flatNavigation).filter(
                     (page) =>
                         page.title?.toLowerCase().includes(query.toLowerCase()) ||
                         page.subtitle?.toLowerCase().includes(query.toLowerCase()) ||
                         page.link?.toLowerCase().includes(query.toLowerCase())
                 );
-                console.log(pagesResults);
 
                 if (pagesResults.length > 0) {
                     // Normalize the results
@@ -203,8 +199,6 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
 
                 // Store the result sets
                 this.resultSet = pagesResults;
-
-                console.log(pagesResults);
 
                 // Execute the event
                 this.search.next(pagesResults);

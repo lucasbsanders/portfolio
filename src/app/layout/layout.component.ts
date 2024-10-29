@@ -18,6 +18,7 @@ import { CompactLayoutComponent } from './layouts/vertical/compact/compact.compo
 import { DenseLayoutComponent } from './layouts/vertical/dense/dense.component';
 import { FuturisticLayoutComponent } from './layouts/vertical/futuristic/futuristic.component';
 import { ThinLayoutComponent } from './layouts/vertical/thin/thin.component';
+import { FuseSplashScreenService } from '@fuse/services/splash-screen';
 
 @Component({
     selector     : 'layout',
@@ -29,6 +30,8 @@ import { ThinLayoutComponent } from './layouts/vertical/thin/thin.component';
 })
 export class LayoutComponent implements OnInit, OnDestroy
 {
+    private readonly SPLASH_SCREEN_TIME_MS = 500;
+
     config: FuseConfig;
     layout: string;
     scheme: 'dark' | 'light';
@@ -46,6 +49,7 @@ export class LayoutComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fusePlatformService: FusePlatformService,
+        private _splashScreenService: FuseSplashScreenService,
     )
     {
     }
@@ -59,6 +63,9 @@ export class LayoutComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        this._splashScreenService.show();
+        setTimeout(() => this._splashScreenService.hide(), this.SPLASH_SCREEN_TIME_MS);
+
         // Set the theme and scheme based on the configuration
         combineLatest([
             this._fuseConfigService.config$,

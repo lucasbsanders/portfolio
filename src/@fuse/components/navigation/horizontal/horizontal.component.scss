@@ -27,10 +27,6 @@ fuse-horizontal-navigation {
                     padding: 0 16px;
                     cursor: pointer;
                     user-select: none;
-
-                    .fuse-horizontal-navigation-item-icon {
-                        margin-right: 12px;
-                    }
                 }
             }
         }
@@ -41,23 +37,21 @@ fuse-horizontal-navigation {
             .fuse-horizontal-navigation-item-active,
             .fuse-horizontal-navigation-item-active-forced {
 
-                // .fuse-horizontal-navigation-item-title {
-                //     .dark & {
-                //         @apply text-white;
-                //     }
-                // }
+                .fuse-horizontal-navigation-item-title {
+                    @apply text-primary #{'!important'};
+                }
 
-                // .fuse-horizontal-navigation-item-subtitle {
-                //     .dark & {
-                //         @apply text-white;
-                //     }
-                // }
+                .fuse-horizontal-navigation-item-subtitle {
+                    @apply text-primary-400 #{'!important'};
 
-                // .fuse-horizontal-navigation-item-icon {
-                //     .dark & {
-                //         @apply text-white;
-                //     }
-                // }
+                    .dark & {
+                        @apply text-primary-600 #{'!important'};
+                    }
+                }
+
+                .fuse-horizontal-navigation-item-icon {
+                    @apply text-primary #{'!important'};
+                }
             }
         }
 
@@ -119,19 +113,19 @@ fuse-horizontal-navigation {
         .fuse-horizontal-navigation-item-active-forced {
 
             .fuse-horizontal-navigation-item-title {
-                @apply text-primary;
+                @apply text-primary #{'!important'};
             }
 
             .fuse-horizontal-navigation-item-subtitle {
-                @apply text-primary-400;
+                @apply text-primary-400 #{'!important'};
 
                 .dark & {
-                    @apply text-primary-600;
+                    @apply text-primary-600 #{'!important'};
                 }
             }
 
             .fuse-horizontal-navigation-item-icon {
-                @apply text-primary;
+                @apply text-primary #{'!important'};
             }
         }
     }
@@ -149,6 +143,7 @@ fuse-horizontal-navigation {
         .fuse-horizontal-navigation-item {
             position: relative;
             display: flex;
+            gap: 12px;
             align-items: center;
             justify-content: flex-start;
             min-height: 48px;

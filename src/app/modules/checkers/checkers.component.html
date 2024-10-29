@@ -1,0 +1,183 @@
+<div class="w-full max-w-full m-6 flex flex-col">
+  <div class="w-full flex flex-col md:flex-row gap-4" #contentContainer>
+    
+    <!-- Checkers board -->
+    <div class="mt-0.5 lg:mt-1 outline outline-2 lg:outline-4 outline-gray-700 dark:outline-gray-100 flex flex-col relative" #checkersBoard
+      [ngStyle]="{'height.px': boardSizePx, 'width.px': boardSizePx}">
+      <span class="checker z-20" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize, 'left.px': selectedCheckerX, 'top.px': selectedCheckerY}"
+        [ngClass]="{'checker-black': currentPlayerNumber === 1, 'checker-red': currentPlayerNumber === 2, 'hidden': !selectedChecker }">
+        <span class="checker-top" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"></span>
+      </span>
+      <span *ngFor="let eligibleSpace of eligibleSpaces" class="z-10 highlight" [ngStyle]="{'height.px': boardSizePx / 8, 'width.px': boardSizePx / 8,
+          'top.px': eligibleSpace.row * boardSizePx / 8,
+          'left.px': eligibleSpace.col * boardSizePx / 8}">
+      </span>
+
+      <ng-container *ngFor="let checker of board.p2Pieces">
+        <ng-container *ngTemplateOutlet="checkerDisplay; context: {checker: checker}"></ng-container>
+      </ng-container>
+      <ng-container *ngFor="let checker of board.p1Pieces">
+        <ng-container *ngTemplateOutlet="checkerDisplay; context: {checker: checker}"></ng-container>
+      </ng-container>
+
+      <div *ngFor="let _a of BOARD_SIZE_ARR; let row = index" class="w-full grow flex flex-row">
+        <div *ngFor="let _b of BOARD_SIZE_ARR; let col = index" [id]="row + ',' + col" class="h-full grow relative" [ngClass]="{
+          'bg-slate-100 dark:bg-slate-800': (row + col) % 2 === 0,
+          'bg-white dark:bg-slate-900': (row + col) % 2 === 1,
+          'inset-hover-shadow': hoverSpace?.length && hoverSpace[0] === col && hoverSpace[1] === row}">
+        </div>
+      </div>
+    </div>
+
+    <!-- Info table -->
+    <div class="grow">
+      <h4 class="p-4 mb-4 text-white text-2xl font-semibold" [ngClass]="{
+        'bg-red-600': currentPlayerNumber === 2,
+        'bg-gray-600': currentPlayerNumber === 1,
+      }">
+        {{currentPlayerNumber === 1 ? 'Player 1\'s turn' : 'Player 2\'s turn' }}
+      </h4>
+      <div class="border border-gray-700 dark:border-gray-100 rounded-md py-2 px-4 mb-4">
+        <p class="font-semibold text-lg">
+          Turn History
+        </p>
+        @if (!board.turns?.length) {
+        <p class="">When you start playing, your moves will be logged here</p>
+        }
+        @else {
+        <div class="flex flex-col mt-2">
+          <div *ngFor="let move of board.turns; let i = index" class="flex flex-row items-start">
+            <div @expandCollapse *ngIf="i < 3">
+              <ng-container *ngTemplateOutlet="turnDisplay; context: {move: move, i: i}"></ng-container>
+            </div>
+            <div @expandCollapse *ngIf="i >= 3 && showAllTurnHistory">
+              <ng-container *ngTemplateOutlet="turnDisplay; context: {move: move, i: i}"></ng-container>
+            </div>
+          </div>
+        </div>
+        }
+        @if (board.turns.length > 3) {
+        <button type="button" mat-button color="primary" (click)="showAllTurnHistory = !showAllTurnHistory">
+          <div class="flex gap-2 items-center">
+            @if (!showAllTurnHistory) {
+            See All Turns
+            <mat-icon svgIcon="heroicons_outline:chevron-down"></mat-icon>
+            }
+            @else {
+            Collapse
+            <mat-icon svgIcon="heroicons_outline:chevron-up"></mat-icon>
+            }
+          </div>
+        </button>
+        }
+      </div>
+      <div class="border border-gray-700 dark:border-gray-100 rounded-md py-2 px-4">
+        <p class="font-semibold text-lg">
+          Captured Pieces
+        </p>
+        @if (!board.p2PiecesCaptured?.length && !board.p1PiecesCaptured.length) {
+        <p class="">Captured pieces will be displayed here</p>
+        }
+        @else {
+        <div class="flex flex-row justify-between mt-2">
+          <span>Player 1</span>
+          <span>Player 2</span>
+        </div>
+        <div class="flex flex-row justify-between mt-2">
+          <div class="flex flex-row gap-1">
+            <div *ngFor="let red of board.p1PiecesCaptured" class="bg-red-700 rounded-full h-4 w-4"></div>
+          </div>
+          <div class="flex flex-row gap-1">
+            <div *ngFor="let black of board.p2PiecesCaptured" class="bg-gray-700 rounded-full h-4 w-4"></div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+  </div>
+
+  <div class="block max-w-none mx-auto prose prose-sm mt-16 mb-8">
+    <h1>About "Checkers"</h1>
+
+    <h2>Pending work not yet completed</h2>
+    <h3>Checkers game rules</h3>
+    <ul>
+      <li>Add the checkers rule that forces a user to jump if a jump is available.</li>
+      <li>Allow multiple jumps in succession and log those moves in the turn history.</li>
+      <li>Add the "King" operation and allow backward movement by kinged pieces.</li>
+      <li>Implement the win, lose, and draw game states.</li>
+    </ul>
+
+    <h3>Optional features</h3>
+    <ul>
+      <li>Allow multiple configurations of the checkers board theme.</li>
+      <li>Allow the user to rollback turns and set the game state to a previous snapshot.</li>
+      <li>Add the ability to set up a custom start state for a checkers game.</li>
+      <li>Export and import the game state as a first step for creating interactive games between online players.</li>
+    </ul>
+
+    <h2>Technical Notes</h2>
+    <p>
+      This project was built with with pure HTML and CSS, and a homemade checkers rules engine that is still under development.
+      The board, spaces, and pieces are created responsively based on the screen size, and the drag-and-drop operation is created with hovering elements that
+      move when the cursor moves within the checkers board.
+    </p>
+
+    <h3>Board game state</h3>
+    <p>
+      The game state includes the position of every checker on the board, the current turn player's color, and the captured pieces.
+    </p>
+
+    <textarea fuse-highlight lang="typescript">
+      export interface CheckerBoard {
+        currentTurn: CheckerColor;
+        p2Pieces: Checker[]; // a "Checker" contains a row, column, and the player number of the owner
+        p1Pieces: Checker[];
+        p2PiecesCaptured: Checker[];
+        p1PiecesCaptured: Checker[];
+        turns: CheckersTurn[];
+      }
+    </textarea>
+
+    <h3>Highlighting spaces</h3>
+    <p>
+      When a piece is picked up, the eligible spaces that it can move are calculated and highlighted with a yellow circle.
+      These eligible spaces are used to determine if the player can drop the piece on the space that it's hovering over.
+      The hover space is also highlighted with a yellow vignette.
+    </p>
+
+    <textarea fuse-highlight lang="typescript">
+      export interface EligibleSpace {
+        row: number;
+        col: number;
+        captured?: Checker;
+      }
+    </textarea>
+  </div>
+</div>
+
+<ng-template #checkerDisplay let-checker="checker">
+  <span class="checker z-10"
+    [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize, 'top.px': checker.row * checkerSize / CHECKER_RATIO + checkerSize * CHECKER_TOP_OFFSET, 'left.px': checker.col * checkerSize / CHECKER_RATIO + checkerSize * CHECKER_TOP_OFFSET}"
+    [ngClass]="{'opacity-50': selectedChecker?.id === checker.id, 'checker-red': checker.playerNumber === 2, 'checker-black': checker.playerNumber === 1}"
+    (mousedown)="clickChecker($event, checker.row, checker.col)" (touchstart)="clickChecker($event, checker.row, checker.col)">
+    <span class="checker-top" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"></span>
+  </span>
+</ng-template>
+
+<ng-template #turnDisplay let-move="move" let-i="i">
+  <div class="w-full flex items-center mb-2">
+    <span class="block w-[4rem]">{{(i + 1)}}</span>
+    <span class="block w-[6rem] text-white mr-6" [ngClass]="{ 'bg-red-600': move.playerNumber === 2, 'bg-gray-600': move.playerNumber === 1 }">
+      {{move.playerNumber === 1 ? 'Player 1:' : 'Player 2:'}}
+    </span>
+    <span class="mr-6">
+      {{'(' + (move.startRow + 1) + ', ' + (move.startCol + 1) + ') to ' + '(' + (move.endRow + 1) + ', ' + (move.endCol + 1) + ')'}}
+    </span>
+    @if (move.captured) {
+    <span class="mr-2">Captured:</span>
+    <div class="rounded-full h-4 w-4" [ngClass]="{'bg-red-700': move.playerNumber === 1, 'bg-gray-700': move.playerNumber === 2}"></div>
+    }
+  </div>
+</ng-template>
