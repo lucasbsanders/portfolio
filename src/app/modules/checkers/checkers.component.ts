@@ -78,7 +78,12 @@ const CheckerBoardInitialState = {
 @Component({
     selector: 'app-checkers',
     standalone: true,
-    imports: [CommonModule, MatIconModule, MatButtonModule, FuseHighlightComponent],
+    imports: [
+        CommonModule,
+        MatIconModule,
+        MatButtonModule,
+        FuseHighlightComponent,
+    ],
     templateUrl: './checkers.component.html',
     styleUrl: './checkers.component.scss',
     animations: [fuseAnimations],
@@ -160,8 +165,10 @@ export class CheckersComponent implements AfterViewChecked, OnInit {
         this.selectedChecker = piece;
 
         // get the mouse cursor position at startup:
-        this.offsetTop = this.checkersBoardRef.nativeElement.getBoundingClientRect().top;
-        this.offsetLeft = this.checkersBoardRef.nativeElement.getBoundingClientRect().left;
+        this.offsetTop =
+            this.checkersBoardRef.nativeElement.getBoundingClientRect().top;
+        this.offsetLeft =
+            this.checkersBoardRef.nativeElement.getBoundingClientRect().left;
 
         this.selectedCheckerX = Math.min(
             Math.max(
@@ -292,7 +299,11 @@ export class CheckersComponent implements AfterViewChecked, OnInit {
     }
 
     private _getEligibleSpaces(checker: Checker): EligibleSpace[] {
-        const [playerNumber, r, c] = [checker.playerNumber, checker.row, checker.col];
+        const [playerNumber, r, c] = [
+            checker.playerNumber,
+            checker.row,
+            checker.col,
+        ];
         const newSpaces: EligibleSpace[] = [];
         const redDirections: number[][] = [
             [1, -1],
