@@ -7,6 +7,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseHighlightComponent } from '@fuse/components/highlight';
@@ -83,6 +84,7 @@ const CheckerBoardInitialState = {
         MatIconModule,
         MatButtonModule,
         FuseHighlightComponent,
+        MatDividerModule,
     ],
     templateUrl: './checkers.component.html',
     styleUrl: './checkers.component.scss',
@@ -296,6 +298,10 @@ export class CheckersComponent implements AfterViewChecked, OnInit {
 
         document.ontouchmove = moveFn;
         document.onmousemove = moveFn;
+    }
+
+    public saveGameState() {
+        console.log(this.board);
     }
 
     private _getEligibleSpaces(checker: Checker): EligibleSpace[] {

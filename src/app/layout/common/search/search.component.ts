@@ -76,7 +76,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
         this._fuseNavigationService.getFlatNavigation(defaultNavigation);
 
     @Input() appearance: 'basic' | 'bar' = 'basic';
-    @Input() debounce: number = 300;
+    @Input() debounce: number = 0;
     @Input() minLength: number = 2;
     @Output() search: EventEmitter<any> = new EventEmitter<any>();
 
@@ -170,9 +170,10 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
                     // Set the resultSets to null if there is no value or
                     // the length of the value is smaller than the minLength
                     // so the autocomplete panel can be closed
-                    if (!value || value.length < this.minLength) {
+                    if (value == null)
                         this.resultSet = null;
-                    }
+                    else if (value.length < this.minLength)
+                        this.resultSet = cloneDeep(this.flatNavigation);
 
                     // Continue
                     return value;
@@ -245,6 +246,8 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
 
         // Open the search
         this.opened = true;
+
+        setTimeout(() => this.searchControl.setValue(''), 225);
     }
 
     /**
@@ -258,7 +261,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
         }
 
         // Clear the search input
-        this.searchControl.setValue('');
+        this.searchControl.setValue(null);
 
         // Close the search
         this.opened = false;

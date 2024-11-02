@@ -1,6 +1,6 @@
 <div class="max-w-screen p-4 lg:p-6">
   <div class="flex flex-col md:flex-row gap-4" #contentContainer>
-    
+
     <!-- Checkers board -->
     <div class="mt-0.5 lg:mt-1 outline outline-2 lg:outline-4 outline-gray-700 dark:outline-gray-100 flex flex-col relative" #checkersBoard
       [ngStyle]="{'height.px': boardSizePx, 'width.px': boardSizePx}">
@@ -29,50 +29,20 @@
       </div>
     </div>
 
-    <!-- Info table -->
+    <!--Side panel -->
     <div class="grow">
+
+      <!-- Current player turn -->
       <h4 class="p-4 mb-4 text-white text-2xl font-semibold" [ngClass]="{
         'bg-red-600': currentPlayerNumber === 2,
         'bg-gray-600': currentPlayerNumber === 1,
       }">
         {{currentPlayerNumber === 1 ? 'Player 1\'s turn' : 'Player 2\'s turn' }}
       </h4>
-      <div class="border border-gray-700 dark:border-gray-100 rounded-md py-2 px-4 mb-4">
-        <p class="font-semibold text-lg">
-          Turn History
-        </p>
-        @if (!board.turns?.length) {
-        <p class="">When you start playing, your moves will be logged here</p>
-        }
-        @else {
-        <div class="flex flex-col mt-2">
-          <div *ngFor="let move of board.turns; let i = index" class="flex flex-row items-start">
-            <div @expandCollapse *ngIf="i < 3">
-              <ng-container *ngTemplateOutlet="turnDisplay; context: {move: move, i: i}"></ng-container>
-            </div>
-            <div @expandCollapse *ngIf="i >= 3 && showAllTurnHistory">
-              <ng-container *ngTemplateOutlet="turnDisplay; context: {move: move, i: i}"></ng-container>
-            </div>
-          </div>
-        </div>
-        }
-        @if (board.turns.length > 3) {
-        <button type="button" mat-button color="primary" (click)="showAllTurnHistory = !showAllTurnHistory">
-          <div class="flex gap-2 items-center">
-            @if (!showAllTurnHistory) {
-            See All Turns
-            <mat-icon svgIcon="heroicons_outline:chevron-down"></mat-icon>
-            }
-            @else {
-            Collapse
-            <mat-icon svgIcon="heroicons_outline:chevron-up"></mat-icon>
-            }
-          </div>
-        </button>
-        }
-      </div>
-      <div class="border border-gray-700 dark:border-gray-100 rounded-md py-2 px-4">
-        <p class="font-semibold text-lg">
+
+      <!-- Captured pieces -->
+      <div class="rounded-md py-2 px-4">
+        <p class="font-semibold text-lg mb-1">
           Captured Pieces
         </p>
         @if (!board.p2PiecesCaptured?.length && !board.p1PiecesCaptured.length) {
@@ -93,9 +63,81 @@
         </div>
         }
       </div>
-    </div>
 
+      <mat-divider class="mx-4 my-4"></mat-divider>
+
+      <!-- Turn history -->
+      <div class="rounded-md py-2 px-4">
+        <p class="font-semibold text-lg mb-1">
+          Turn History
+        </p>
+        @if (!board.turns?.length) {
+        <p class="">When you start playing, your moves will be logged here</p>
+        }
+        @else {
+        <div class="flex flex-col mt-4">
+          <div *ngFor="let move of board.turns; let i = index" class="flex flex-row items-start">
+            <div @expandCollapse *ngIf="i < 3">
+              <ng-container *ngTemplateOutlet="turnDisplay; context: {move: move, i: i}"></ng-container>
+            </div>
+            <div @expandCollapse *ngIf="i >= 3 && showAllTurnHistory">
+              <ng-container *ngTemplateOutlet="turnDisplay; context: {move: move, i: i}"></ng-container>
+            </div>
+          </div>
+        </div>
+        }
+        @if (board.turns.length > 3) {
+        <button type="button" mat-button color="primary" class="ml-10" (click)="showAllTurnHistory = !showAllTurnHistory">
+          <div class="flex gap-2 items-center">
+            @if (!showAllTurnHistory) {
+            See All Turns
+            <mat-icon svgIcon="heroicons_outline:chevron-down"></mat-icon>
+            }
+            @else {
+            Collapse
+            <mat-icon svgIcon="heroicons_outline:chevron-up"></mat-icon>
+            }
+          </div>
+        </button>
+        }
+
+        @if (board.turns.length) {
+        <button type="button" mat-button color="primary" class="ml-10" (click)="saveGameState()">
+          <div class="flex gap-2 items-center">
+            Save Game State
+            <mat-icon svgIcon="heroicons_outline:arrow-down-tray"></mat-icon>
+          </div>
+        </button>
+        }
+      </div>
+    </div>
   </div>
+
+  <ng-template #checkerDisplay let-checker="checker">
+    <span class="checker z-10"
+      [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize, 'top.px': checker.row * checkerSize / CHECKER_RATIO + checkerSize * CHECKER_TOP_OFFSET, 'left.px': checker.col * checkerSize / CHECKER_RATIO + checkerSize * CHECKER_TOP_OFFSET}"
+      [ngClass]="{'opacity-50': selectedChecker?.id === checker.id, 'checker-red': checker.playerNumber === 2, 'checker-black': checker.playerNumber === 1}"
+      (mousedown)="clickChecker($event, checker.row, checker.col)" (touchstart)="clickChecker($event, checker.row, checker.col)">
+      <span class="checker-top" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"></span>
+    </span>
+  </ng-template>
+
+  <ng-template #turnDisplay let-move="move" let-i="i">
+    <div class="w-full flex items-center my-3 flex-wrap md:flex-nowrap">
+      <span class="block w-[3.5rem]">{{(i + 1)}}</span>
+      <span class="block w-[6rem] text-white mr-6 px-1" [ngClass]="{ 'bg-red-600': move.playerNumber === 2, 'bg-gray-600': move.playerNumber === 1 }">
+        {{move.playerNumber === 1 ? 'Player 1:' : 'Player 2:'}}
+      </span>
+      <span>
+        {{'(' + (move.startRow + 1) + ', ' + (move.startCol + 1) + ') to ' + '(' + (move.endRow + 1) + ', ' + (move.endCol + 1) + ')'}}
+      </span>
+      @if (move.captured) {
+      <span class="ml-6 mr-2">Captured:</span>
+      <div class="rounded-full h-4 w-4" [ngClass]="{'bg-red-700': move.playerNumber === 1, 'bg-gray-700': move.playerNumber === 2}">
+      </div>
+      }
+    </div>
+  </ng-template>
 
   <div class="block max-w-none mx-auto prose prose-sm mt-16 mb-8">
     <h1>About "Checkers"</h1>
@@ -156,28 +198,3 @@
     </textarea>
   </div>
 </div>
-
-<ng-template #checkerDisplay let-checker="checker">
-  <span class="checker z-10"
-    [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize, 'top.px': checker.row * checkerSize / CHECKER_RATIO + checkerSize * CHECKER_TOP_OFFSET, 'left.px': checker.col * checkerSize / CHECKER_RATIO + checkerSize * CHECKER_TOP_OFFSET}"
-    [ngClass]="{'opacity-50': selectedChecker?.id === checker.id, 'checker-red': checker.playerNumber === 2, 'checker-black': checker.playerNumber === 1}"
-    (mousedown)="clickChecker($event, checker.row, checker.col)" (touchstart)="clickChecker($event, checker.row, checker.col)">
-    <span class="checker-top" [ngStyle]="{'height.px': checkerSize, 'width.px': checkerSize}"></span>
-  </span>
-</ng-template>
-
-<ng-template #turnDisplay let-move="move" let-i="i">
-  <div class="w-full flex items-center mb-2">
-    <span class="block w-[4rem]">{{(i + 1)}}</span>
-    <span class="block w-[6rem] text-white mr-6" [ngClass]="{ 'bg-red-600': move.playerNumber === 2, 'bg-gray-600': move.playerNumber === 1 }">
-      {{move.playerNumber === 1 ? 'Player 1:' : 'Player 2:'}}
-    </span>
-    <span class="mr-6">
-      {{'(' + (move.startRow + 1) + ', ' + (move.startCol + 1) + ') to ' + '(' + (move.endRow + 1) + ', ' + (move.endCol + 1) + ')'}}
-    </span>
-    @if (move.captured) {
-    <span class="mr-2">Captured:</span>
-    <div class="rounded-full h-4 w-4" [ngClass]="{'bg-red-700': move.playerNumber === 1, 'bg-gray-700': move.playerNumber === 2}"></div>
-    }
-  </div>
-</ng-template>

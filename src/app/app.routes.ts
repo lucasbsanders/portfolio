@@ -11,10 +11,17 @@ export const appRoutes: Route[] = [
         path: '',
         component: LayoutComponent,
         resolve: {
-            initialData: initialDataResolver
+            initialData: initialDataResolver,
         },
         children: [
-            {path: '', loadChildren: () => import('app/modules/admin/example/example.routes')},
-        ]
-    }
+            // {
+            //     path: 'blog',
+            //     loadChildren: () => import('app/modules/blog/blog.routes'),
+            // },
+            {
+                path: '',
+                loadChildren: () => import('app/modules/portfolio/portfolio.routes'),
+            },
+        ],
+    },
 ];

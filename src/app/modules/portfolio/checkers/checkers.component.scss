@@ -11,7 +11,7 @@
   }
 
   &.checker-red {
-    @apply bg-red-950;
+    @apply bg-red-800 dark:bg-red-900;
 
     .checker-top::after {
       @apply bg-red-600;
@@ -19,7 +19,7 @@
   }
 
   &.checker-black {
-    @apply bg-black;
+    @apply bg-gray-800 dark:bg-gray-900;
 
     .checker-top::after {
       @apply bg-gray-600;
