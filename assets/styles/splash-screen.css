@@ -9,7 +9,7 @@ body fuse-splash-screen {
     right: 0;
     bottom: 0;
     background-color: #333333;
-    color: #F9FAFB;
+    color: #f9fafb;
     z-index: 999999;
     pointer-events: none;
     opacity: 1;
@@ -22,51 +22,78 @@ body fuse-splash-screen img {
     max-width: 120px;
 }
 
-body fuse-splash-screen .spinner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 40px;
-    width: 56px;
+body fuse-splash-screen .container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
 }
 
-body fuse-splash-screen .spinner > div {
-    width: 12px;
-    height: 12px;
-    background-color: #1E96F7;
+body fuse-splash-screen .container > div {
+    width: 25vw;
+    height: 25vw;
+    background-color: white;
+    opacity: 20%;
     border-radius: 100%;
-    display: inline-block;
-    -webkit-animation: fuse-bouncedelay 1s infinite ease-in-out both;
-    animation: fuse-bouncedelay 1s infinite ease-in-out both;
+    position: absolute;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+
+    -webkit-animation: custom-ripple 1s infinite linear forwards;
+    animation: custom-ripple 1s infinite linear forwards;
 }
 
-body fuse-splash-screen .spinner .bounce1 {
+body fuse-splash-screen .container .bounce1 {
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
+    top: 20vh;
+    left: 20vw;
 }
 
-body fuse-splash-screen .spinner .bounce2 {
+body fuse-splash-screen .container .bounce2 {
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s;
+    top: 75vh;
+    left: 50vw;
 }
 
-@-webkit-keyframes fuse-bouncedelay {
-    0%, 80%, 100% {
-        -webkit-transform: scale(0)
+body fuse-splash-screen .container .bounce3 {
+    top: 45vh;
+    left: 65vw;
+}
+
+@-webkit-keyframes custom-ripple {
+    0% {
+        -webkit-transform: scale(0);
     }
     40% {
-        -webkit-transform: scale(1.0)
+        -webkit-transform: scale(1);
+    }
+    80% {
+        -webkit-transform: scale(2);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: scale(2.5);
     }
 }
 
-@keyframes fuse-bouncedelay {
-    0%, 80%, 100% {
+@keyframes custom-ripple {
+    0% {
         -webkit-transform: scale(0);
         transform: scale(0);
     }
     40% {
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    80% {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: scale(2.5);
+        transform: scale(2.5);
     }
 }
 
