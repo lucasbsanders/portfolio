@@ -38,8 +38,8 @@ body fuse-splash-screen .container > div {
     -webkit-transform: scale(0);
     transform: scale(0);
 
-    -webkit-animation: custom-ripple 1s infinite linear forwards;
-    animation: custom-ripple 1s infinite linear forwards;
+    -webkit-animation: custom-ripple 1s linear forwards;
+    animation: custom-ripple 1s linear forwards;
 }
 
 body fuse-splash-screen .container .bounce1 {
