@@ -45,19 +45,19 @@ body fuse-splash-screen .container > div {
 body fuse-splash-screen .container .bounce1 {
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
-    top: 20vh;
-    left: 20vw;
+    top: 10vh;
+    left: 10vw;
 }
 
 body fuse-splash-screen .container .bounce2 {
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s;
-    top: 75vh;
-    left: 50vw;
+    top: 65vh;
+    left: 37.5vw;
 }
 
 body fuse-splash-screen .container .bounce3 {
-    top: 45vh;
+    top: 37.5vh;
     left: 65vw;
 }
 
@@ -65,15 +65,15 @@ body fuse-splash-screen .container .bounce3 {
     0% {
         -webkit-transform: scale(0);
     }
-    40% {
-        -webkit-transform: scale(1);
+    25% {
+        -webkit-transform: scale(0);
     }
-    80% {
-        -webkit-transform: scale(2);
-        opacity: 0;
+    50% {
+        opacity: .2;
     }
     100% {
-        -webkit-transform: scale(2.5);
+        -webkit-transform: scale(2);
+        opacity: 0;
     }
 }
 
@@ -82,18 +82,17 @@ body fuse-splash-screen .container .bounce3 {
         -webkit-transform: scale(0);
         transform: scale(0);
     }
-    40% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
+    25% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
     }
-    80% {
+    50% {
+        opacity: .2;
+    }
+    100% {
         -webkit-transform: scale(2);
         transform: scale(2);
         opacity: 0;
-    }
-    100% {
-        -webkit-transform: scale(2.5);
-        transform: scale(2.5);
     }
 }
 
