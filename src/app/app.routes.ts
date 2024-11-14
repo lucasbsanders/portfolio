@@ -14,10 +14,10 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver,
         },
         children: [
-            // {
-            //     path: 'blog',
-            //     loadChildren: () => import('app/modules/blog/blog.routes'),
-            // },
+            {
+                path: 'blog',
+                loadChildren: () => import('app/modules/blog/blog.routes'),
+            },
             {
                 path: '',
                 loadChildren: () => import('app/modules/portfolio/portfolio.routes'),

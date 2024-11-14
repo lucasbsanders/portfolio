@@ -1,6 +1,6 @@
 <div class="w-full flex flex-col">
-    <div class="w-full flex justify-center px-4 mb-16 mt-8 md:mt-16" (mouseenter)="titleHover = true" (mouseleave)="titleHover = false"
-        (click)="titleHover = !titleHover">
+    <div class="w-full flex justify-center px-4 mb-16 mt-8 md:mt-16" (mouseenter)="pageTitleHover = true" (mouseleave)="pageTitleHover = false"
+        (click)="pageTitleHover = !pageTitleHover">
         <div class="w-full max-w-3xl">
             <h1 class="text-[5rem] md:text-[10rem] leading-[.9] hover-text" #pageTitle>
                 Lucas Sanders
@@ -8,17 +8,18 @@
         </div>
     </div>
 
-    <div class="w-full flex flex-col items-center py-10 px-4 bg-amber-200 dark:bg-amber-800">
-        <div class="w-full max-w-3xl prose prose-lg border border-black p-4 rounded-lg mb-3 cursor-pointer hover:shadow-2xl" (click)="triggerHoverBox('about')">
+    <div class="w-full flex flex-col items-center py-10 px-4 bg-blue-200 dark:bg-sky-800">
+        <div class="w-full max-w-3xl prose prose-lg border border-black p-4 rounded-lg mb-3 cursor-pointer hover:shadow-2xl" (click)="clickSubSection('about')">
             <div class="flex flex-row justify-between items-center">
                 <h2 class="my-0">
                     About Me
                 </h2>
-                <mat-icon svgIcon="heroicons_outline:chevron-down" class="transition-all duration-[225ms]" [ngClass]="{ '-rotate-90': hoverBox !== 'about' }">
+                <mat-icon svgIcon="heroicons_outline:chevron-down" class="transition-all duration-[225ms]"
+                    [ngClass]="{ '-rotate-90': openSubSection !== 'about' }">
                 </mat-icon>
             </div>
 
-            <div @expandCollapse *ngIf="hoverBox === 'about'" class="mt-8">
+            <div @expandCollapse *ngIf="openSubSection === 'about'" class="mt-8">
                 <p>
                     I'm a full-stack software engineer with a specialty in front-end development.
                 </p>
@@ -29,17 +30,17 @@
         </div>
 
         <div class="w-full max-w-3xl prose prose-lg border border-black p-4 rounded-lg mb-3 cursor-pointer hover:shadow-2xl"
-            (click)="triggerHoverBox('projects')">
+            (click)="clickSubSection('projects')">
             <div class="flex flex-row justify-between items-center">
                 <h2 class="my-0">
                     Projects
                 </h2>
                 <mat-icon svgIcon="heroicons_outline:chevron-down" class="transition-all duration-[225ms]"
-                    [ngClass]="{ '-rotate-90': hoverBox !== 'projects' }">
+                    [ngClass]="{ '-rotate-90': openSubSection !== 'projects' }">
                 </mat-icon>
             </div>
 
-            <div @expandCollapse *ngIf="hoverBox === 'projects'" class="mt-8">
+            <div @expandCollapse *ngIf="openSubSection === 'projects'" class="mt-8">
                 <a class="text-lg" mat-flat-button [color]="'primary'" [routerLink]="'/checkers'">
                     <div class="flex flex-row gap-2 items-center">
                         <span>Checkers</span>
@@ -49,17 +50,23 @@
             </div>
         </div>
 
-        <div class="w-full max-w-3xl prose prose-lg border border-black p-4 rounded-lg">
+        <div class="w-full max-w-3xl prose prose-lg border border-black p-4 rounded-lg cursor-pointer hover:shadow-2xl" (click)="clickSubSection('blogs')">
             <div class="flex flex-row justify-between items-center">
                 <h2 class="my-0">
                     Blog Posts
                 </h2>
-                <!-- <mat-icon svgIcon="heroicons_outline:chevron-down" class="transition-all duration-[225ms]" [ngClass]="{ '-rotate-90': !blogsHover }">
-                </mat-icon> -->
+                <mat-icon svgIcon="heroicons_outline:chevron-down" class="transition-all duration-[225ms]"
+                    [ngClass]="{ '-rotate-90': openSubSection !== 'blogs' }">
+                </mat-icon>
             </div>
 
-            <div @expandCollapse *ngIf="hoverBox === 'blogs'" class="mt-8">
-
+            <div @expandCollapse *ngIf="openSubSection === 'blogs'" class="mt-8">
+                <a class="text-lg" mat-flat-button [color]="'primary'" [routerLink]="'/blog/checkers'">
+                    <div class="flex flex-row gap-2 items-center">
+                        <span>Checkers</span>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

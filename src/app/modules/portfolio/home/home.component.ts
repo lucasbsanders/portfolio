@@ -32,19 +32,21 @@ import { fuseAnimations } from '@fuse/animations';
 export class HomeComponent implements AfterViewInit {
     @ViewChild('pageTitle') pageTitle: ElementRef;
 
-    public set titleHover(value: boolean) {
-        this._titleHover = value;
-        this._titleAnimation(value);
+    public set pageTitleHover(value: boolean) {
+        this._pageTitleHover = value;
+        this._triggerPageTitleAnimation(value);
     }
-    public get titleHover(): boolean {
-        return this._titleHover;
+    public get pageTitleHover(): boolean {
+        return this._pageTitleHover;
     }
-    private _titleHover = false;
+    private _pageTitleHover = false;
 
-    public hoverBox?: 'about' | 'projects' | 'blogs';
+    public openSubSection?: 'about' | 'projects' | 'blogs';
 
-    private _titleInterval?: any;
-    private _fontWeight = 100;
+    private _pageTitleAnimationInterval?: any;
+    private _pageTitleStyles = {
+        fontWeight: 100,
+    };
 
     /**
      * Constructor
@@ -52,35 +54,34 @@ export class HomeComponent implements AfterViewInit {
     constructor(private _renderer: Renderer2) {}
 
     ngAfterViewInit(): void {
-        this._updateFontWeight();
+        this._updatePageTitleStyle();
     }
 
-    public triggerHoverBox(boxName: 'about' | 'projects' | 'blogs') {
-        console.log('trigger hover ' + boxName)
-        if (this.hoverBox === boxName) this.hoverBox = undefined;
-        else this.hoverBox = boxName;
+    public clickSubSection(boxName: 'about' | 'projects' | 'blogs') {
+        if (this.openSubSection === boxName) this.openSubSection = undefined;
+        else this.openSubSection = boxName;
     }
 
-    private _updateFontWeight() {
+    private _updatePageTitleStyle() {
         this._renderer.setStyle(
             this.pageTitle.nativeElement,
             'font-weight',
-            this._fontWeight
+            this._pageTitleStyles.fontWeight
         );
     }
 
-    private _titleAnimation(forward: boolean) {
-        clearInterval(this._titleInterval);
+    private _triggerPageTitleAnimation(forward: boolean) {
+        clearInterval(this._pageTitleAnimationInterval);
 
-        this._titleInterval = setInterval(() => {
-            this._updateFontWeight();
+        this._pageTitleAnimationInterval = setInterval(() => {
+            this._updatePageTitleStyle();
 
             if (forward) {
-                if (this._fontWeight >= 900) clearInterval(this._titleInterval);
-                else this._fontWeight += 100;
+                if (this._pageTitleStyles.fontWeight >= 900) clearInterval(this._pageTitleAnimationInterval);
+                else this._pageTitleStyles.fontWeight += 100;
             } else {
-                if (this._fontWeight <= 100) clearInterval(this._titleInterval);
-                else this._fontWeight -= 100;
+                if (this._pageTitleStyles.fontWeight <= 100) clearInterval(this._pageTitleAnimationInterval);
+                else this._pageTitleStyles.fontWeight -= 100;
             }
         }, 40);
     }

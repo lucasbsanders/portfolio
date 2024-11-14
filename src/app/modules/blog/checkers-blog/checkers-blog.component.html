@@ -1,0 +1,83 @@
+<div class="block mx-auto prose prose-md w-full max-w-screen px-4 md:px-6 py-8">
+  <h1>About "Checkers"</h1>
+
+  @if (!previewMode) {
+  <a class="text-lg" mat-flat-button [color]="'primary'" [routerLink]="'/checkers'">
+    <div class="flex flex-row gap-2 items-center">
+      <span>Play Checkers Game</span>
+      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon>
+    </div>
+  </a>
+  }
+
+  <h2>In-Progress Work</h2>
+  <h3>Checkers game rules</h3>
+  <ul>
+    <li [ngClass]="{'line-through': previewMode}">Add the checkers rule that forces a user to jump if a jump is available.</li>
+    <li [ngClass]="{'line-through': previewMode}">Allow multiple jumps in succession and log those moves in the turn history.</li>
+    <li [ngClass]="{'line-through': previewMode}">Show the space of the captured piece.</li>
+    <li [ngClass]="{'line-through': previewMode}">Add the "King" operation and allow backward movement by kinged pieces.</li>
+    <li [ngClass]="{'line-through': previewMode}">Implement the win, lose, and draw game states.</li>
+  </ul>
+
+  <h3>Optional features</h3>
+  <ul class="relative">
+    <li>Allow multiple configurations of the checkers board theme.</li>
+    <li>Allow the user to rollback turns and set the game state to a previous snapshot.</li>
+    <li>Add the ability to set up a custom start state for a checkers game.</li>
+    <li>Export and import the game state</li>
+    <li>Allow interactive games between players online</li>
+
+    @if (previewMode) {
+    <div class="fade-shadow-over-text"></div>
+    }
+  </ul>
+
+  @if (previewMode) {
+  <a class="text-lg mt-6 w-full" mat-flat-button [color]="'primary'" [routerLink]="'/blog/checkers'">
+    <div class="flex flex-row gap-2 items-center">
+      <span>Read blog post</span>
+      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon>
+    </div>
+  </a>
+  }
+  @else {
+  <h2>Technical Notes</h2>
+  <p>
+    This project was built with with pure HTML and CSS, and a homemade checkers rules engine that is still under development.
+    The board, spaces, and pieces are created responsively based on the screen size, and the drag-and-drop operation is created with hovering elements that
+    move when the cursor moves within the checkers board.
+  </p>
+
+  <h3>Board game state</h3>
+  <p>
+    The game state includes the position of every checker on the board, the current turn player's color, and the captured pieces.
+  </p>
+
+  <textarea fuse-highlight lang="typescript">
+    export interface CheckerBoard {
+      currentTurn: CheckerColor;
+      p2Pieces: Checker[]; // a "Checker" contains a row, column, and the player number of the owner
+      p1Pieces: Checker[];
+      p2PiecesCaptured: Checker[];
+      p1PiecesCaptured: Checker[];
+      turns: CheckersTurn[];
+    }
+  </textarea>
+
+  <h3>Highlighting spaces</h3>
+  <p>
+    When a piece is picked up, the eligible spaces that it can move are calculated and highlighted with a yellow circle.
+    These eligible spaces are used to determine if the player can drop the piece on the space that it's hovering over.
+    The hover space is also highlighted with a yellow vignette.
+  </p>
+
+  <textarea fuse-highlight lang="typescript">
+    export interface EligibleSpace {
+      row: number;
+      col: number;
+      captured?: Checker;
+    }
+  </textarea>
+  }
+</div>

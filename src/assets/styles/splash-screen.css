@@ -9,7 +9,7 @@ body fuse-splash-screen {
     right: 0;
     bottom: 0;
     background-color: #333333;
-    color: #F9FAFB;
+    color: #f9fafb;
     z-index: 999999;
     pointer-events: none;
     opacity: 1;
@@ -22,51 +22,77 @@ body fuse-splash-screen img {
     max-width: 120px;
 }
 
-body fuse-splash-screen .spinner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 40px;
-    width: 56px;
+body fuse-splash-screen .container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
 }
 
-body fuse-splash-screen .spinner > div {
-    width: 12px;
-    height: 12px;
-    background-color: #1E96F7;
+body fuse-splash-screen .container > div {
+    width: 25vw;
+    height: 25vw;
+    background-color: white;
+    opacity: 20%;
     border-radius: 100%;
-    display: inline-block;
-    -webkit-animation: fuse-bouncedelay 1s infinite ease-in-out both;
-    animation: fuse-bouncedelay 1s infinite ease-in-out both;
+    position: absolute;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+
+    -webkit-animation: custom-ripple 1s linear forwards;
+    animation: custom-ripple 1s linear forwards;
 }
 
-body fuse-splash-screen .spinner .bounce1 {
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
+body fuse-splash-screen .container .bounce1 {
+    -webkit-animation-delay: -0.40s;
+    animation-delay: -0.40s;
+    top: 10vh;
+    left: 10vw;
 }
 
-body fuse-splash-screen .spinner .bounce2 {
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
+body fuse-splash-screen .container .bounce2 {
+    -webkit-animation-delay: -0.20s;
+    animation-delay: -0.20s;
+    top: 65vh;
+    left: 37.5vw;
 }
 
-@-webkit-keyframes fuse-bouncedelay {
-    0%, 80%, 100% {
-        -webkit-transform: scale(0)
+body fuse-splash-screen .container .bounce3 {
+    top: 37.5vh;
+    left: 65vw;
+}
+
+@-webkit-keyframes custom-ripple {
+    0% {
+        -webkit-transform: scale(0);
     }
-    40% {
-        -webkit-transform: scale(1.0)
+    25% {
+        -webkit-transform: scale(0);
+    }
+    50% {
+        opacity: .2;
+    }
+    100% {
+        -webkit-transform: scale(2);
+        opacity: 0;
     }
 }
 
-@keyframes fuse-bouncedelay {
-    0%, 80%, 100% {
+@keyframes custom-ripple {
+    0% {
         -webkit-transform: scale(0);
         transform: scale(0);
     }
-    40% {
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
+    25% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    50% {
+        opacity: .2;
+    }
+    100% {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        opacity: 0;
     }
 }
 
@@ -79,5 +105,5 @@ body.fuse-splash-screen-hidden fuse-splash-screen {
 }
 
 body fuse-splash-screen {
-    transition: opacity 500ms ease;
+    transition: opacity 600ms ease;
 }
