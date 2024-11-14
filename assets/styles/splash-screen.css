@@ -43,15 +43,15 @@ body fuse-splash-screen .container > div {
 }
 
 body fuse-splash-screen .container .bounce1 {
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
+    -webkit-animation-delay: -0.40s;
+    animation-delay: -0.40s;
     top: 10vh;
     left: 10vw;
 }
 
 body fuse-splash-screen .container .bounce2 {
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
+    -webkit-animation-delay: -0.20s;
+    animation-delay: -0.20s;
     top: 65vh;
     left: 37.5vw;
 }
@@ -105,5 +105,5 @@ body.fuse-splash-screen-hidden fuse-splash-screen {
 }
 
 body fuse-splash-screen {
-    transition: opacity 500ms ease;
+    transition: opacity 600ms ease;
 }
